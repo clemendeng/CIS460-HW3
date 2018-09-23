@@ -1,0 +1,13 @@
+1.	a. pixel row and edge are not parallel or perpendicular. criteria: find intersections of the lines using their equations, restricting to inside the triangle's bounding box
+	b. pixel row and edge are parallel. criteria: if y coordinate is the same they overlap
+	c. pixel row and edge are perpendicular. criteria: use x coordinate of edge (which is vertical) and y coordinate of pixel row (horizontal). If inside bounding box, overlap.
+
+2. If A+B+C (area of triangles of barycentric interpolation) > area of triangle, point is not inside triangle. This is less efficient than row bound checking because you need to calculate this value for every pixel. Row bound checking does it row by row.
+
+3. Projection Matrix * View Matrix * P = Pixel Space
+View Matrix: 
+	turns objects in world space axes to camera axes. Rotates and translates the objects depending on where the camera is and what direction it's facing.
+Projection Matrix: 
+	sets w=z so that after dividing by z w=1
+	does perspective divide so that we get a meaningful z coordinate in [0, 1]
+	fits to the field of view - instead of moving screen, we assume it is always 1 unit away, and scale objects to compensate.
