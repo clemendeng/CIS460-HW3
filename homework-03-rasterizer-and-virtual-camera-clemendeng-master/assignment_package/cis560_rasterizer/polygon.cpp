@@ -3,7 +3,8 @@
 
 void Polygon::Triangulate()
 {
-    for(unsigned int i=2; i < m_tris.size(); i++) {
+    m_tris.push_back(Triangle({0, 1, 2}));
+    for(unsigned int i = 3; i < m_verts.size(); i++) {
         m_tris.push_back(Triangle({0, i-1, i}));
     }
 }
@@ -134,20 +135,21 @@ glm::vec4 Polygon::bounding_box(Triangle t) {
 
 glm::vec3 Polygon::barycentric(Triangle t, float x, float y) {
     glm::vec4 a = m_verts[t.m_indices[0]].m_pos, b = m_verts[t.m_indices[1]].m_pos,
-            c = m_verts[t.m_indices[2]].m_pos, p = glm::vec4(x, y, 0, 0);
-    glm::vec3 l1 = glm::vec3(a[0]-b[0], a[1]-b[1], 0);
-    glm::vec3 l2 = glm::vec3(a[0]-c[0], a[1]-c[1], 0);
+            c = m_verts[t.m_indices[2]].m_pos, p = glm::vec4(x, y, 0, 1);
+    glm::vec3 l1 = glm::vec3(b[0] - a[0], b[1] - a[1], 0);
+    glm::vec3 l2 = glm::vec3(c[0] - a[0], c[1] - a[1], 0);
     float Area = glm::length(glm::cross(l1, l2));
-    l1 = glm::vec3(p[0]-b[0], p[1]-b[1], 0);
-    l2 = glm::vec3(p[0]-c[0], p[1]-c[1], 0);
+    l1 = glm::vec3(b[0] - p[0], b[1] - p[1], 0);
+    l2 = glm::vec3(c[0] - p[0], c[1] - p[1], 0);
     float A = glm::length(glm::cross(l1, l2));
-    l1 = glm::vec3(p[0]-a[0], p[1]-a[1], 0);
-    l2 = glm::vec3(p[0]-c[0], p[1]-c[1], 0);
+    l1 = glm::vec3(a[0] - p[0], a[1] - p[1], 0);
+    l2 = glm::vec3(c[0] - p[0], c[1] - p[1], 0);
     float B = glm::length(glm::cross(l1, l2));
-    l1 = glm::vec3(p[0]-a[0], p[1]-a[1], 0);
-    l2 = glm::vec3(p[0]-b[0], p[1]-b[1], 0);
+    l1 = glm::vec3(a[0] - p[0], a[1] - p[1], 0);
+    l2 = glm::vec3(b[0] - p[0], b[1] - p[1], 0);
     float C = glm::length(glm::cross(l1, l2));
-    return glm::vec3(A/Area, B/Area, C/Area);
+
+    return glm::vec3(A / Area, B / Area, C / Area);
 }
 
 glm::vec3 GetImageColor(const glm::vec2 &uv_coord, const QImage* const image)

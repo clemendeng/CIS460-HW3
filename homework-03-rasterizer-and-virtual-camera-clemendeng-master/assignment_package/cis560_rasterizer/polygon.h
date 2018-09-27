@@ -77,6 +77,7 @@ public:
     // Returns the bounding box (left, right, top, bottom) of the triangle
     glm::vec4 bounding_box(Triangle t);
 
+    // Returns the barycentric coordinates of a point (x, y) in triangle t
     glm::vec3 barycentric(Triangle t, float x, float y);
 };
 

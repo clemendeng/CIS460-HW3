@@ -1,5 +1,6 @@
 #pragma once
 #include <polygon.h>
+#include <camera.h>
 #include <QImage>
 
 class Rasterizer
@@ -9,6 +10,7 @@ private:
     std::vector<Polygon> m_polygons;
 public:
     Rasterizer(const std::vector<Polygon>& polygons);
+    Camera camera;
     QImage RenderScene();
     void ClearScene();
 };

@@ -23,6 +23,23 @@ void MainWindow::keyPressEvent(QKeyEvent *e)
     //The key shortcuts for the other menu commands were set in Qt's GUI
     //editor. This one was implemented as a key press event for illustration purposes.
     case Qt::Key_Escape : on_actionQuit_Esc_triggered();  break;
+
+        //Translations
+    case Qt::Key_W : rasterizer.camera.translateForward(0.5); rasterizer.RenderScene(); break;
+    case Qt::Key_S : rasterizer.camera.translateForward(-0.5); rasterizer.RenderScene(); break;
+    case Qt::Key_A : rasterizer.camera.translateRight(-0.5); rasterizer.RenderScene(); break;
+    case Qt::Key_D : rasterizer.camera.translateRight(0.5); rasterizer.RenderScene(); break;
+    case Qt::Key_Q : rasterizer.camera.translateUp(0.5); rasterizer.RenderScene(); break;
+    case Qt::Key_E : rasterizer.camera.translateUp(-0.5); rasterizer.RenderScene(); break;
+
+        //Rotations
+    case Qt::Key_J : rasterizer.camera.rotateY(10); rasterizer.RenderScene(); break;
+    case Qt::Key_L : rasterizer.camera.rotateY(-10); rasterizer.RenderScene(); break;
+    case Qt::Key_I : rasterizer.camera.rotateX(-10); rasterizer.RenderScene(); break;
+    case Qt::Key_K : rasterizer.camera.rotateX(10); rasterizer.RenderScene(); break;
+    case Qt::Key_U : rasterizer.camera.rotateZ(10); rasterizer.RenderScene(); break;
+    case Qt::Key_O : rasterizer.camera.rotateZ(-10); rasterizer.RenderScene(); break;
+
     }
 
     rendered_image = rasterizer.RenderScene();

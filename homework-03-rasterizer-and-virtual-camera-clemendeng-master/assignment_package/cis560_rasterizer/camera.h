@@ -11,16 +11,22 @@ private:
 public:
     Camera();
 
+    //Matrices
     glm::mat4 view();
     glm::mat4 proj();
 
+    //Translations
     void translateForward(float t);
     void translateRight(float t);
     void translateUp(float t);
 
+    //Rotations
     void rotateZ(float r);
     void rotateX(float r);
     void rotateY(float r);
+
+    //Look vector
+    glm::vec4 dir();
 };
 
 #endif // CAMERA_H
