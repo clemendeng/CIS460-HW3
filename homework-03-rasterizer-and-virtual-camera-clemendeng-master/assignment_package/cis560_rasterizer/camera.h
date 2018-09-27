@@ -25,7 +25,6 @@ public:
     void rotateX(float r);
     void rotateY(float r);
 
-    //Look vector
     glm::vec4 dir();
 };
 

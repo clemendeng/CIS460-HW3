@@ -54,6 +54,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     setFocusPolicy(Qt::StrongFocus);
+
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(frameMode(int)));
 }
 
 MainWindow::~MainWindow()
@@ -262,4 +264,14 @@ void MainWindow::on_actionEquilateral_Triangle_triggered()
 void MainWindow::on_actionQuit_Esc_triggered()
 {
     QApplication::exit();
+}
+
+void MainWindow::frameMode(int m) {
+    if(m == 1) {
+        rasterizer.frame = true;
+    } else {
+        rasterizer.frame = false;
+    }
+    rendered_image = rasterizer.RenderScene();
+    DisplayQImage(rendered_image);
 }

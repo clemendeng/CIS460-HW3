@@ -4,6 +4,7 @@
 #include <QString>
 #include <QImage>
 #include <QColor>
+#include <line.h>
 
 // A Vertex is a point in space that defines one corner of a polygon.
 // Each Vertex has several attributes that determine how they contribute to the
@@ -79,6 +80,8 @@ public:
 
     // Returns the barycentric coordinates of a point (x, y) in triangle t
     glm::vec3 barycentric(Triangle t, float x, float y);
+    // Returns (index_a, index_b, proportion distance of attribute from a)
+    glm::vec3 barycentric2(Triangle t, Line l, float x, float y);
 };
 
 // Returns the color of the pixel in the image at the specified texture coordinates.

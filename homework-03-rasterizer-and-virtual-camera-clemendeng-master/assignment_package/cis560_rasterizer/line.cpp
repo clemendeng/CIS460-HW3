@@ -10,8 +10,8 @@ float calc(bool v, float n, float d) {
 Line::Line()
 {}
 
-Line::Line(glm::vec4 a, glm::vec4 b) : a(a), b(b), vertical(b[0] - a[0]==0),
-    slope(calc(vertical, (b[1] - a[1]), (b[0] - a[0])))
+Line::Line(glm::vec4 a, glm::vec4 b) : vertical(b[0] - a[0]==0),
+    slope(calc(vertical, (b[1] - a[1]), (b[0] - a[0]))), a(a), b(b)
 {}
 
 bool Line::intersect(float y, float *x_intersection) {
@@ -22,6 +22,7 @@ bool Line::intersect(float y, float *x_intersection) {
         *x_intersection = a[0];
         return true;
     } else if(slope == 0){
+        *x_intersection = -1;
         return false;
     } else {
         float intercept = a[1] - slope * a[0];

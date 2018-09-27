@@ -32,6 +32,8 @@ private slots:
 
     void on_actionQuit_Esc_triggered();
 
+    void frameMode(int m);
+
 private:
     Ui::MainWindow *ui;
     Polygon LoadOBJ(const QString &file, const QString &polyName);

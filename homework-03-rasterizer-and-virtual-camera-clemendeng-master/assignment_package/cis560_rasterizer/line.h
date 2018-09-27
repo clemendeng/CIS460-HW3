@@ -7,10 +7,10 @@ class Line
 {
 private:
     //vec4 so can easily use with Vertex class
-    glm::vec4 a, b;
     bool vertical;
     float slope;
 public:
+    glm::vec4 a, b;
     Line();
     Line(glm::vec4 a, glm::vec4 b);
 

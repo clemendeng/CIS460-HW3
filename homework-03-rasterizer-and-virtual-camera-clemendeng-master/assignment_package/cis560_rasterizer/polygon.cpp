@@ -152,6 +152,43 @@ glm::vec3 Polygon::barycentric(Triangle t, float x, float y) {
     return glm::vec3(A / Area, B / Area, C / Area);
 }
 
+glm::vec3 Polygon::barycentric2(Triangle t, Line l, float x, float y) {
+    float a_index, b_index, sign = 1.f;
+    Vertex a = m_verts[t.m_indices[0]], b = m_verts[t.m_indices[1]], c = m_verts[t.m_indices[2]];
+    //Finding which of (a, b, c) correspond to l.a, l.b
+    if(glm::abs(l.a[0] - a.m_pos[0]) < 0.001 && glm::abs(l.a[1] - a.m_pos[1]) < 0.001) {
+        //a = l.a
+        a_index = 0.f;
+        if(!(glm::abs(l.b[0] - b.m_pos[0]) < 0.001 && glm::abs(l.b[1] - b.m_pos[1]) < 0.001)) {
+            b = c;
+            b_index = 2.f;
+        } else {
+            b_index = 1.f;
+        }
+    } else if(glm::abs(l.a[0] - b.m_pos[0]) < 0.001 && glm::abs(l.a[1] - b.m_pos[1]) < 0.001) {
+        a = b;
+        b = c;
+        a_index = 1.f;
+        b_index = 2.f;
+    } else {
+        a = c;
+        a_index = 2.f;
+        b_index = 1.f;
+    }
+    //Now (a, b) correspond to (l.a, l.b)
+    if(glm::abs(a.m_pos[0] - b.m_pos[0]) > glm::abs(a.m_pos[1] - b.m_pos[1])) {
+        if(a.m_pos[0] > b.m_pos[0]) {
+            sign = -1.f;
+        }
+        return glm::vec3(a_index, b_index, sign * (x - a.m_pos[0]) / (b.m_pos[0] - a.m_pos[0]));
+    } else {
+        if(a.m_pos[1] > b.m_pos[1]) {
+            sign = -1.f;
+        }
+        return glm::vec3(a_index, b_index, sign * (y - a.m_pos[1]) / (b.m_pos[1] - a.m_pos[1]));
+    }
+}
+
 glm::vec3 GetImageColor(const glm::vec2 &uv_coord, const QImage* const image)
 {
     if(image)

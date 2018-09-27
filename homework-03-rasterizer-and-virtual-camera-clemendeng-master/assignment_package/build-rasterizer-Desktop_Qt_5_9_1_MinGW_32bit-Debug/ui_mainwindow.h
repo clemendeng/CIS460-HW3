@@ -13,6 +13,7 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QComboBox>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
@@ -33,6 +34,7 @@ public:
     QAction *actionQuit_Esc;
     QWidget *centralWidget;
     QGraphicsView *scene_display;
+    QComboBox *comboBox;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuScenes;
@@ -57,11 +59,14 @@ public:
         scene_display = new QGraphicsView(centralWidget);
         scene_display->setObjectName(QStringLiteral("scene_display"));
         scene_display->setEnabled(false);
-        scene_display->setGeometry(QRect(50, 25, 512, 512));
+        scene_display->setGeometry(QRect(50, 40, 512, 512));
         scene_display->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         scene_display->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
         scene_display->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
         scene_display->setInteractive(false);
+        comboBox = new QComboBox(centralWidget);
+        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox->setGeometry(QRect(260, 10, 61, 22));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -103,6 +108,11 @@ public:
 #endif // QT_NO_SHORTCUT
         actionEquilateral_Triangle->setText(QApplication::translate("MainWindow", "Equilateral Triangle", Q_NULLPTR));
         actionQuit_Esc->setText(QApplication::translate("MainWindow", "Quit (Esc)", Q_NULLPTR));
+        comboBox->clear();
+        comboBox->insertItems(0, QStringList()
+         << QApplication::translate("MainWindow", "Solid", Q_NULLPTR)
+         << QApplication::translate("MainWindow", "Frame", Q_NULLPTR)
+        );
         menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
         menuScenes->setTitle(QApplication::translate("MainWindow", "Scenes", Q_NULLPTR));
     } // retranslateUi

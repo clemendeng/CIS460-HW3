@@ -10,6 +10,7 @@ private:
     std::vector<Polygon> m_polygons;
 public:
     Rasterizer(const std::vector<Polygon>& polygons);
+    bool frame;
     Camera camera;
     QImage RenderScene();
     void ClearScene();
